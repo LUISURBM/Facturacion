@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFacturasTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_id}" for="id" />
+                    <h:inputText readonly="readonly" disabled="disabled" id="id" value="#{facturasController.selected.id}" title="#{bundle.EditFacturasTitle_id}" required="true" requiredMessage="#{bundle.EditFacturasRequiredMessage_id}"/>
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_numero}" for="numero" />
+                    <h:inputText id="numero" value="#{facturasController.selected.numero}" title="#{bundle.EditFacturasTitle_numero}" />
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_fecha}" for="fecha" />
+                    <p:calendar id="fecha" value="#{facturasController.selected.fecha}" title="#{bundle.EditFacturasTitle_fecha}" maxdate="#{Calenda.getInstance().getTime()}"/>
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_tpoPago}" for="tpoPago" />
+                    <p:selectOneMenu id="tpoPago" value="#{facturasController.selected.tpoPago}" label="#{bundle.CreateFacturasTitle_tpoPago}">
+                        <f:selectItem itemLabel="EFECTIVO" itemValue="1"/>
+                        <f:selectItem itemLabel="TARJERTA" itemValue="2"/>
+                    </p:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_dcuCliente}" for="dcuCliente" />
+                    <h:inputText id="dcuCliente" value="#{facturasController.selected.dcuCliente}" title="#{bundle.EditFacturasTitle_dcuCliente}" />
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_nombres}" for="nombres" />
+                    <h:inputText id="nombres" value="#{facturasController.selected.nombres}" title="#{bundle.EditFacturasTitle_nombres}" />
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_subtotal}" for="subtotal" />
+                    <h:inputText id="subtotal" value="#{facturasController.selected.subtotal}" title="#{bundle.EditFacturasTitle_subtotal}" />
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_descuento}" for="descuento" />
+                    <h:inputText id="descuento" value="#{facturasController.selected.descuento}" title="#{bundle.EditFacturasTitle_descuento}" />
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_iva}" for="iva" />
+                    <h:inputText id="iva" value="#{facturasController.selected.iva}" title="#{bundle.EditFacturasTitle_iva}" />
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_descuentoTotal}" for="descuentoTotal" />
+                    <h:inputText id="descuentoTotal" value="#{facturasController.selected.descuentoTotal}" title="#{bundle.EditFacturasTitle_descuentoTotal}" />
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_impuestoTotal}" for="impuestoTotal" />
+                    <h:inputText id="impuestoTotal" value="#{facturasController.selected.impuestoTotal}" title="#{bundle.EditFacturasTitle_impuestoTotal}" />
+                    <h:outputLabel value="#{bundle.EditFacturasLabel_total}" for="total" />
+                    <h:inputText id="total" value="#{facturasController.selected.total}" title="#{bundle.EditFacturasTitle_total}" />
+                </h:panelGrid>
+                <ui:repeat value="#{facturasController.selected.detallesList}" var="item"  varStatus="estado">
+                    <h:panelGrid title="Detalle #{item.id}" style="border-bottom:  solid 3px lime">
+                        <h:outputLabel value="#{bundle.EditDetallesLabel_cantidad}" for="cantidad" />
+                        <h:inputText id="cantidad" value="#{item.cantidad}" title="#{bundle.EditDetallesTitle_cantidad}" />
+                        <h:outputLabel value="#{bundle.EditDetallesLabel_precioUnitario}" for="precioUnitario" />
+                        <h:inputText id="precioUnitario" value="#{item.precioUnitario}" title="#{bundle.EditDetallesTitle_precioUnitario}" />
+                        <h:outputLabel value="#{bundle.EditDetallesLabel_productoId}" for="productoId" />
+                        <h:selectOneMenu id="productoId" value="#{item.productoId}" title="#{bundle.EditDetallesTitle_productoId}" >
+                            <f:selectItems value="#{productosController.itemsAvailableSelectOne}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                </ui:repeat>
+                <br />
+                <br />
+                <br />
+                <br />
+                <p:commandButton action="#{facturasController.addProduct}" icon="pi pi-check" styleClass="rounded-button ui-button-flat" value="#{bundle.EditFacturasAddLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="#{facturasController.update}" value="#{bundle.EditFacturasSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditFacturasViewLink}"/>
+                <br />
+                <h:commandLink action="#{facturasController.prepareList}" value="#{bundle.EditFacturasShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditFacturasIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

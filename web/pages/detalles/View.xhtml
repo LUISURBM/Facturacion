@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDetallesTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDetallesLabel_id}"/>
+                    <h:outputText value="#{detallesController.selected.id}" title="#{bundle.ViewDetallesTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewDetallesLabel_cantidad}"/>
+                    <h:outputText value="#{detallesController.selected.cantidad}" title="#{bundle.ViewDetallesTitle_cantidad}"/>
+                    <h:outputText value="#{bundle.ViewDetallesLabel_precioUnitario}"/>
+                    <h:outputText value="#{detallesController.selected.precioUnitario}" title="#{bundle.ViewDetallesTitle_precioUnitario}"/>
+                    <h:outputText value="#{bundle.ViewDetallesLabel_facturaId}"/>
+                    <h:outputText value="#{detallesController.selected.facturaId}" title="#{bundle.ViewDetallesTitle_facturaId}"/>
+                    <h:outputText value="#{bundle.ViewDetallesLabel_productoId}"/>
+                    <h:outputText value="#{detallesController.selected.productoId}" title="#{bundle.ViewDetallesTitle_productoId}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{detallesController.destroyAndView}" value="#{bundle.ViewDetallesDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDetallesEditLink}"/>
+                <br />
+                <h:commandLink action="#{detallesController.prepareCreate}" value="#{bundle.ViewDetallesCreateLink}" />
+                <br />
+                <h:commandLink action="#{detallesController.prepareList}" value="#{bundle.ViewDetallesShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDetallesIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
